@@ -1,0 +1,9 @@
+*.o
+*.elf
+*.hex
+*.bin
+*.map
+*~
+*bak
+firmware/lib/STM32F30x_StdPeriph_Driver
+firmware/lib/CMSIS
