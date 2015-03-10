@@ -1,5 +1,8 @@
 
 #include "stm32f30x.h"
+#include "main.h"
+//#include “core_cm3.h” //needed for data types 
+
 
 
 
@@ -17,10 +20,10 @@ Button_A: PB4
 LED_1: PB6
 LED_2: PB7
 
-CURRENT_ADC: PA0
-OUTPUT_ADC: PA1
-SUPPLY_ADC: PA2
-AUDIO_ADC: PA3
+CURRENT_ADC: PA0 ADC1_IN1
+OUTPUT_ADC: PA1 ADC1_IN2
+SUPPLY_ADC: PA2 ADC1_IN3
+AUDIO_ADC: PA3 ADC1_IN4
 
 LCD_CS!: PA4
 SPI_SCK: PA5
@@ -36,10 +39,14 @@ RF_B: PA11  HRTIM1_CHB2
 #define DT_FALLING 30 //*250ps
 #define DT_RISING 30
 
+//global variables
+volatile uint32_t TimingDelay;
+
 //function prototypes: 
 void led_on();
 void led_off();
 void GPIO_config();
+void ADC_config();
 
 void RF_config();
 void RF_enable();
@@ -47,11 +54,15 @@ void RF_disable();
 void SMPS_config();
 
 int main(){
+
+	//SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);
+	SysTick_Config(SystemCoreClock / 120000);
 	GPIO_config();
 	led_on();
 	RF_config();
-	
+	ADC_config();
 	SMPS_config();
+	
 	RF_enable();
 	
 	int i = 0;
@@ -67,7 +78,84 @@ int main(){
 	return 0;
 }
 
-//
+
+//CURRENT_ADC: PA0 ADC1_IN1
+//OUTPUT_ADC: PA1 ADC1_IN2
+//SUPPLY_ADC: PA2 ADC1_IN3
+//AUDIO_ADC: PA3 ADC1_IN4
+void ADC_config(){
+
+	ADC_InitTypeDef       ADC_InitStructure;
+  	ADC_CommonInitTypeDef ADC_CommonInitStructure;
+  	ADC_InjectedInitTypeDef ADC_InjectedInitStruct;
+
+	/* Configure the ADC clock */
+	RCC_ADCCLKConfig(RCC_ADC12PLLCLK_Div1);
+
+	/* Enable ADC1 clock */
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_ADC12, ENABLE);
+
+	//enable power to ADC
+	ADC_VoltageRegulatorCmd(ADC1, ENABLE);
+
+	Delay(1); //allow power to stabilize 
+
+	//calibrate the ADC
+	ADC_SelectCalibrationMode(ADC1, ADC_CalibrationMode_Single);
+ 	ADC_StartCalibration(ADC1);
+  	while(ADC_GetCalibrationStatus(ADC1) != RESET ); //wait for finish
+
+	//structure to init ADC1
+	ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;                                                                    
+	ADC_CommonInitStructure.ADC_Clock = ADC_Clock_AsynClkMode;                    
+	ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;             
+	ADC_CommonInitStructure.ADC_DMAMode = ADC_DMAMode_OneShot;                  
+	ADC_CommonInitStructure.ADC_TwoSamplingDelay = 0;          
+	ADC_CommonInit(ADC1, &ADC_CommonInitStructure); //init the ADC
+	
+	
+	//more detailed init structure
+	//do not set up in regular sampling mode, want injected sampling mode
+	ADC_InitStructure.ADC_ContinuousConvMode = ADC_ContinuousConvMode_Disable;
+	ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b; 
+	ADC_InitStructure.ADC_ExternalTrigConvEvent = ADC_ExternalTrigConvEvent_0;         
+	ADC_InitStructure.ADC_ExternalTrigEventEdge = ADC_ExternalTrigEventEdge_None;
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+	ADC_InitStructure.ADC_OverrunMode = ADC_OverrunMode_Disable;   
+	ADC_InitStructure.ADC_AutoInjMode = ADC_AutoInjec_Disable;  
+	ADC_InitStructure.ADC_NbrOfRegChannel = 1;
+	ADC_Init(ADC1, &ADC_InitStructure);
+
+	//set up ADC injection sampling
+	//injected event comes from page 230 of the refrence manual
+	//HRTIM_ADCTRG2 event
+	ADC_InjectedInitStruct.ADC_ExternalTrigInjecConvEvent = ADC_ExternalTrigInjecConvEvent_9;
+  	ADC_InjectedInitStruct.ADC_ExternalTrigInjecEventEdge = ADC_ExternalTrigInjecEventEdge_RisingEdge;
+  	ADC_InjectedInitStruct.ADC_InjecSequence1 = ADC_InjectedChannel_1; /* corresponds to PA0 (CURRENT_ADC) */
+  	ADC_InjectedInitStruct.ADC_InjecSequence2 = ADC_InjectedChannel_2; /* corresponds to PA1 (OUTPUT_ADC) */
+	ADC_InjectedInitStruct.ADC_InjecSequence3 = ADC_InjectedChannel_3; /* corresponds to PA2 (SUPPLY_ADC) */
+  	ADC_InjectedInitStruct.ADC_InjecSequence4 = ADC_InjectedChannel_4; /* corresponds to PA3 (AUDIO_ADC) */
+  	ADC_InjectedInitStruct.ADC_NbrOfInjecChannel = 4;
+  	ADC_InjectedInit(ADC1, &ADC_InjectedInitStruct);
+	
+	ADC_InjectedChannelSampleTimeConfig(ADC1, ADC_Channel_1, ADC_SampleTime_7Cycles5); //~15ns time constant
+	ADC_InjectedChannelSampleTimeConfig(ADC1, ADC_Channel_2, ADC_SampleTime_7Cycles5); //clk is 14ns
+	ADC_InjectedChannelSampleTimeConfig(ADC1, ADC_Channel_3, ADC_SampleTime_7Cycles5); //~7 time constants
+	ADC_InjectedChannelSampleTimeConfig(ADC1, ADC_Channel_4, ADC_SampleTime_7Cycles5);
+	
+	ADC_Cmd(ADC1, ENABLE); //enable ADC
+	
+	// wait for adc to be ready
+	while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_RDY));   
+
+	//Start ADC1 Injected Conversions 
+	//this actually just enables it
+	ADC_StartInjectedConversion(ADC1);
+
+
+}
+
+
 //MOD_A: PA8  HRTIM1_CHA1
 //MOD_B: PA9  HRTIM1_CHA2
 void SMPS_config(){
@@ -161,15 +249,15 @@ void SMPS_config(){
 	/* --------------------------*/
 	/* ADC trigger initialization */
 	/* --------------------------*/
-	/* Set compare 3 registers for ADC trigger */
+	/* Set compare 2 registers for ADC trigger */
 	
 	HRTIM_CompareStructure.AutoDelayedMode = HRTIM_AUTODELAYEDMODE_REGULAR;
 	HRTIM_CompareStructure.AutoDelayedTimeout = 0;
 	HRTIM_CompareStructure.CompareValue = BUCK_PWM_PERIOD/10;  //samples in middle of duty cycle 
 	HRTIM_WaveformCompareConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_2, &HRTIM_CompareStructure);
 
-	HRTIM_ADCTrigStructure.Trigger = HRTIM_ADCTRIGGEREVENT24_TIMERA_CMP2;
-	HRTIM_ADCTrigStructure.UpdateSource = HRTIM_ADCTRIGGERUPDATE_TIMER_D;
+	HRTIM_ADCTrigStructure.Trigger = HRTIM_ADCTRIGGEREVENT24_TIMERA_CMP2; 
+	HRTIM_ADCTrigStructure.UpdateSource = HRTIM_ADCTRIGGERUPDATE_TIMER_A; //this was D in example, switched to A?
 	HRTIM_ADCTriggerConfig(HRTIM1, HRTIM_ADCTRIGGER_2, &HRTIM_ADCTrigStructure);
 	
 
@@ -207,8 +295,7 @@ void GPIO_config(){
 	
 
 	//enable clock to pin ports
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB |
-        RCC_AHBPeriph_GPIOF | RCC_AHBPeriph_DMA1 | RCC_AHBPeriph_CRC, ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB, ENABLE);
 	//init GPIO pin 
 	GPIO_InitTypeDef GPIO_InitStruct;
 
@@ -281,6 +368,13 @@ void GPIO_config(){
 	//RF_B alternative function setup
 	// HRTIMER is on AF_13
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource11, GPIO_AF_13);
+
+	//analog inputs
+
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AN;
+  	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+  	GPIO_Init(GPIOA, &GPIO_InitStruct);
 	
 
 }
@@ -380,5 +474,26 @@ void RF_enable(){
 
 void RF_disable(){
 	HRTIM_WaveformOutputStop(HRTIM1, HRTIM_OUTPUT_TB1 | HRTIM_OUTPUT_TB2);
-
 }
+
+//delay functions 
+void TimingDelay_Decrement(void)
+{
+  if (TimingDelay != 0x00)
+  { 
+    TimingDelay--;
+  }
+}
+
+//delays by count of system tick counter, which is 1 ms? 
+void Delay(volatile uint32_t nTime)
+{
+  TimingDelay = nTime;
+  
+  while(TimingDelay != 0);
+}
+
+
+
+
+

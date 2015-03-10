@@ -29,6 +29,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f3xx_it.h"
+#include "main.h"
+//#include “core_cm3.h” //needed for data types
+
 
 #include "stm32f30x.h" //prehaps this does something? 
     
@@ -142,7 +145,10 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
- 
+	static uint32_t counter;
+	counter++;
+ 	TimingDelay_Decrement();
+	
 }
 
 /******************************************************************************/
@@ -169,11 +175,13 @@ void SysTick_Handler(void)
   */
 void HRTIM1_TIMA_IRQHandler(void)
 {
-	//static uint32_t counter;
-	
-	//counter++;
+	static uint32_t counter;
+	static uint32_t Vin; 
+	counter++;
 	HRTIM_ClearITPendingBit(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_TIM_FLAG_REP);
- 
+ 	
+	Vin = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_4); 
+	Vin++;
 }
 
 
