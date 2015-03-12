@@ -175,13 +175,27 @@ void SysTick_Handler(void)
   */
 void HRTIM1_TIMA_IRQHandler(void)
 {
+	uint32_t duty_cycle;
 	static uint32_t counter;
-	static uint32_t Vin; 
 	counter++;
 	HRTIM_ClearITPendingBit(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_TIM_FLAG_REP);
  	
-	Vin = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_4); 
-	Vin++;
+	//12 bit ADC readings
+	
+	output_current = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_1); 
+	output_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_2); 
+	supply_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_3); 
+	audio_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_4); 
+
+
+	duty_cycle = (audio_voltage)*3/2 + MOD_DC_OFFSET;
+	
+
+	
+
+	HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  duty_cycle); /* Duty cycle update */
+    	HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_2,  duty_cycle/2); /* ADC trigger update */	
+	
 }
 
 

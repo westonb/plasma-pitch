@@ -34,13 +34,10 @@ RF_A: PA10  HRTIM1_CHB1
 RF_B: PA11  HRTIM1_CHB2
 */
 
-#define PERIOD_6_78MHZ 320
-#define BUCK_PWM_PERIOD 10000
-#define DT_FALLING 30 //*250ps
-#define DT_RISING 30
 
 //global variables
 volatile uint32_t TimingDelay;
+uint32_t output_current, output_voltage, supply_voltage, audio_voltage;
 
 //function prototypes: 
 void led_on();
@@ -185,7 +182,7 @@ void SMPS_config(){
 
 	//sets counter for timer
 	HRTIM_BaseInitStructure.Period = BUCK_PWM_PERIOD; /* 400kHz switching frequency */
-	HRTIM_BaseInitStructure.RepetitionCounter = 127;   /* 1 ISR every 128 PWM periods */
+	HRTIM_BaseInitStructure.RepetitionCounter = MOD_UPDATE_RATE;   /* ISR rate */
 	HRTIM_BaseInitStructure.PrescalerRatio = HRTIM_PRESCALERRATIO_MUL32;
 	HRTIM_BaseInitStructure.Mode = HRTIM_MODE_CONTINOUS;          
 
