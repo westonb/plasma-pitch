@@ -59,8 +59,7 @@ int main(){
 	RF_config();
 	ADC_config();
 	SMPS_config();
-	
-	RF_enable();
+	//RF_enable();
 	
 	int i = 0;
 	while(1){
