@@ -30,13 +30,16 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f3xx_it.h"
 #include "main.h"
-#define audio_filter_k_p 200
-#define mod_filter_k_p 2
-#define mod_filter_k_i 20
-#define integral_max 200000
-#define integral_min -200000
-#define volume 10
-#define dc_offset 200
+#define audio_filter_k_p 100
+
+//Kp scaling factor: 0.023
+//Ki scaling factor: 9309
+#define mod_filter_k_p 3
+#define mod_filter_k_i 7
+#define integral_max 1<<27
+#define integral_min -integral_max
+#define volume 30
+#define dc_offset 23*((1<<20)/3)
 #define ADC_SAMPLE_TIME 100
 
 //#include “core_cm3.h” //needed for data types
@@ -215,16 +218,17 @@ void HRTIM1_TIMA_IRQHandler(void)
 
 	//target output voltage is volume * 3.3/2^20
 	//output voltage is output_voltage * 59.3/2^12
-	//error is 1/(2^24) volts
-	error = (((audio_filtered>>8)*74 - (int32_t)output_voltage*236)); 
+	//error is 3.3/2^20 volts
+	error = (((audio_filtered*volume+dc_offset) - (int32_t)output_voltage*4800)); 
 	
 	error_i_next = error+ error_i;
 	if((error_i_next < integral_max) && (error_i_next>integral_min)){
 	error_i = error_i_next;
 	}
-	
 
-	duty_cycle = ((mod_filter_k_p*error)>>8) + ((mod_filter_k_i*error_i)>>8);
+	
+	//gains are scaled by a factor of 2^2
+	duty_cycle = ((mod_filter_k_p*((error))>>16) + (mod_filter_k_i*((error_i))>>16));
 
 	if(duty_cycle>=BUCK_PWM_MAX){
 		HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)BUCK_PWM_MAX); /* Duty cycle update */
