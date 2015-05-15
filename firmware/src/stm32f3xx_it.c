@@ -40,7 +40,7 @@
 #define integral_min -integral_max
 #define volume 30
 #define dc_offset 23*((1<<20)/3)
-#define ADC_SAMPLE_TIME 100
+
 
 //#include “core_cm3.h” //needed for data types
 
@@ -159,10 +159,6 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-	static uint32_t counter;
-	counter++;
- 	TimingDelay_Decrement();
-	
 }
 
 /******************************************************************************/
@@ -187,25 +183,32 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
+
+//optimazation:
+//first trial 3.8us
+//now 1.4us
 void HRTIM1_TIMA_IRQHandler(void)
 {
 	int32_t duty_cycle;
 	int32_t error_i_next;
-	static uint32_t counter;
 	static int32_t error;
-	static int32_t error_last;
-	static int32_t control;
-	static int32_t control_last;
 	static int32_t error_i;
 	
-	counter++;
-	HRTIM_ClearITPendingBit(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_TIM_FLAG_REP);
+
+	GPIOB->BSRR = GPIO_Pin_6; //toggle LED pin 1 high 
+	//rewrite all calls for direct register writes
+	//template example:
+	//*((volatile uint32_t*)0x12345678) = shit;
+	//HRTIM_ClearITPendingBit(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_TIM_FLAG_REP);
+	HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].TIMxICR |= HRTIM_TIM_FLAG_REP;
  	
 	//12 bit ADC readings 
 	//output_current = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_1); 
-	output_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_2); 
+	//output_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_2); 
 	//supply_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_3); 
-	audio_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_4); 
+	//audio_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_4); 
+	output_voltage = ADC1->JDR2; //read ADC1 injected channel 2
+	audio_voltage = ADC1->JDR4; //read ADC1 injected channel 4
 
 	
 	//IIR lowpass filter for audio input 
@@ -230,20 +233,22 @@ void HRTIM1_TIMA_IRQHandler(void)
 	//gains are scaled by a factor of 2^2
 	duty_cycle = ((mod_filter_k_p*((error))>>16) + (mod_filter_k_i*((error_i))>>16));
 
+
 	if(duty_cycle>=BUCK_PWM_MAX){
-		HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)BUCK_PWM_MAX); /* Duty cycle update */
-    		HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_2,  (uint32_t)ADC_SAMPLE_TIME); /* ADC trigger update */
+
+		//HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)BUCK_PWM_MAX); /* Duty cycle update */
+    		HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = (uint32_t)BUCK_PWM_MAX;
 	}
 	else if(duty_cycle<=BUCK_PWM_MIN){
-		HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)BUCK_PWM_MIN); /* Duty cycle update */
-    		HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_2,  (uint32_t)ADC_SAMPLE_TIME); /* ADC trigger update */
+		//HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)BUCK_PWM_MIN); /* Duty cycle update */
+		HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = (uint32_t)BUCK_PWM_MIN;
 	}
 	else {
-		HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)duty_cycle); /* Duty cycle update */
-	    	HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_2,  (uint32_t)ADC_SAMPLE_TIME); /* ADC trigger update */	
+		//HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)duty_cycle); /* Duty cycle update */
+		HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = (uint32_t)duty_cycle;
 	}
 	
-	
+	GPIOB->BRR = GPIO_Pin_6; //toggle LED pin 1 low
 }
 
 

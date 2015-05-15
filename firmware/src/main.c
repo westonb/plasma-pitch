@@ -36,7 +36,6 @@ RF_B: PA11  HRTIM1_CHB2
 
 
 //global variables
-volatile uint32_t TimingDelay;
 uint32_t output_current, output_voltage, supply_voltage, audio_voltage;
 
 //function prototypes: 
@@ -50,10 +49,14 @@ void RF_enable();
 void RF_disable(); 
 void SMPS_config();
 
+void Delay_init();
+void msDelay();
+
 int main(){
 
-	//SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);
-	SysTick_Config(SystemCoreClock / 120000);
+	
+	
+	Delay_init(8928); //1ms period
 	GPIO_config();
 	led_on();
 	RF_config();
@@ -94,7 +97,7 @@ void ADC_config(){
 	//enable power to ADC
 	ADC_VoltageRegulatorCmd(ADC1, ENABLE);
 
-	Delay(1); //allow power to stabilize 
+	msDelay(1); //allow power to stabilize 
 
 	//calibrate the ADC
 	ADC_SelectCalibrationMode(ADC1, ADC_CalibrationMode_Single);
@@ -282,8 +285,9 @@ void SMPS_config(){
 
 	/* Start HRTIM's TIMER A */
 	HRTIM_WaveformCounterStart(HRTIM1, HRTIM_TIMERID_TIMER_A); 
-	HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  BUCK_PWM_PERIOD/3);
+	HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  BUCK_PWM_PERIOD/3); //initial PWM period
 
+	HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_2,  (uint32_t)ADC_SAMPLE_TIME); /* ADC trigger update */	
 
 }
 
@@ -472,24 +476,32 @@ void RF_disable(){
 	HRTIM_WaveformOutputStop(HRTIM1, HRTIM_OUTPUT_TB1 | HRTIM_OUTPUT_TB2);
 }
 
-//delay functions 
-void TimingDelay_Decrement(void)
-{
-  if (TimingDelay != 0x00)
-  { 
-    TimingDelay--;
-  }
-}
 
-//delays by count of system tick counter, which is 1 ms? 
-void Delay(volatile uint32_t nTime)
+//delays by count of system tick counter 
+void msDelay(uint32_t nTime)
 {
-  TimingDelay = nTime;
+ 	SysTick->CTRL = (~SysTick_CTRL_COUNTFLAG_Msk)&(SysTick->CTRL); //clear count flag
+	SysTick->VAL = 0; //set counter value to 0
+
+	while(nTime != 0){
+		while(((SysTick->CTRL) & SysTick_CTRL_COUNTFLAG_Msk) == 0); //wait for count flag to be set
+		nTime = nTime - 1;
+		SysTick->CTRL = (~SysTick_CTRL_COUNTFLAG_Msk)&(SysTick->CTRL); //clear count flag
+	}
+	
+	
   
-  while(TimingDelay != 0);
+  
 }
 
+void Delay_init(uint32_t interval){
+	
+	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8); //set clock source
 
+	SysTick->LOAD = interval; //set reload value
+	SysTick->VAL = 0; //set counter value to 0
+	SysTick->CTRL =  SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk; //set clock and enable
+}
 
 
 

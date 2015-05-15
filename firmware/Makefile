@@ -15,7 +15,7 @@ INC += -Ilib/STM32F30x_StdPeriph_Driver/inc
 
 # Assembler, compiler, and linker flags
 AFLAGS  = -mlittle-endian -mthumb -mcpu=cortex-m4
-CFLAGS  = $(AFLAGS) -g -O0 $(INC) -std=c99 -DUSE_STDPERIPH_DRIVER -Wall #debugging flag is on this line
+CFLAGS  = $(AFLAGS) -g -O3 $(INC) -std=c99 -DUSE_STDPERIPH_DRIVER -Wall #debugging flag is on this line
 #CFLAGS += -DSTM32F031
 CFLAGS += -D'HSE_VALUE=((uint32_t)13560000)' #crystal frequency
 CFLAGS += -DUSE_STDPERIPH_DRIVER
@@ -35,6 +35,9 @@ src/startup.o: src/startup.s
 	arm-none-eabi-as $(AFLAGS) src/startup.s -o src/startup.o
 %.o: %.c $(C_INC)
 	arm-none-eabi-gcc $(CFLAGS) -c -o $@ $<
+
+%.S: %.c $(C_INC)
+	 arm-none-eabi-gcc $(CFLAGS) -S -o $@ $<
 gdb: main.elf
 	arm-none-eabi-gdb -x init.gdb
 load: main.elf
