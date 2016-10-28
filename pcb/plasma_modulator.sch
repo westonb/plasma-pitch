@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:plasma_modulator-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -90,7 +90,7 @@ F 3 "" H 8100 2700 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LED D3
+L LED-RESCUE-plasma_modulator D3
 U 1 1 54B6FC78
 P 10500 5700
 F 0 "D3" H 10500 5800 50  0000 C CNN
@@ -123,7 +123,7 @@ F 3 "" H 6050 4500 60  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L C C7
+L C-RESCUE-plasma_modulator C7
 U 1 1 54B70401
 P 1250 1900
 F 0 "C7" H 1250 2000 40  0000 L CNN
@@ -200,7 +200,7 @@ F 3 "" H 6100 2250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R6
+L R-RESCUE-plasma_modulator R6
 U 1 1 54BAE584
 P 7100 2450
 F 0 "R6" V 7180 2450 40  0000 C CNN
@@ -211,7 +211,7 @@ F 3 "" H 7100 2450 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R7
+L R-RESCUE-plasma_modulator R7
 U 1 1 54BAE6E4
 P 7100 2950
 F 0 "R7" V 7180 2950 40  0000 C CNN
@@ -222,7 +222,7 @@ F 3 "" H 7100 2950 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R3
+L R-RESCUE-plasma_modulator R3
 U 1 1 54BAE84D
 P 3200 5950
 F 0 "R3" V 3280 5950 40  0000 C CNN
@@ -233,7 +233,7 @@ F 3 "" H 3200 5950 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R11
+L R-RESCUE-plasma_modulator R11
 U 1 1 54BAE900
 P 8850 2700
 F 0 "R11" V 8930 2700 40  0000 C CNN
@@ -244,7 +244,7 @@ F 3 "" H 8850 2700 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C C22
+L C-RESCUE-plasma_modulator C22
 U 1 1 54BAEB08
 P 6650 2700
 F 0 "C22" H 6650 2800 40  0000 L CNN
@@ -255,7 +255,7 @@ F 3 "" H 6650 2700 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C1
+L C-RESCUE-plasma_modulator C1
 U 1 1 54BAEE1B
 P 650 1100
 F 0 "C1" H 650 1200 40  0000 L CNN
@@ -266,7 +266,7 @@ F 3 "" H 650 1100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C4
+L C-RESCUE-plasma_modulator C4
 U 1 1 54BAEE36
 P 1950 1100
 F 0 "C4" H 1950 1200 40  0000 L CNN
@@ -277,7 +277,7 @@ F 3 "" H 1950 1100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR01
+L +3.3V-RESCUE-plasma_modulator #PWR01
 U 1 1 54BAF157
 P 1700 850
 F 0 "#PWR01" H 1700 810 30  0001 C CNN
@@ -288,7 +288,7 @@ F 3 "" H 1700 850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR02
+L +3.3V-RESCUE-plasma_modulator #PWR02
 U 1 1 54BAF30F
 P 2300 2300
 F 0 "#PWR02" H 2300 2260 30  0001 C CNN
@@ -329,7 +329,7 @@ F 3 "" H 1000 1900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR03
+L GND-RESCUE-plasma_modulator #PWR03
 U 1 1 54BB04D2
 P 6300 4750
 F 0 "#PWR03" H 6300 4750 30  0001 C CNN
@@ -351,7 +351,7 @@ F 3 "" H 1250 1650 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR05
+L GND-RESCUE-plasma_modulator #PWR05
 U 1 1 54BB0B8E
 P 1000 2150
 F 0 "#PWR05" H 1000 2150 30  0001 C CNN
@@ -362,7 +362,7 @@ F 3 "" H 1000 2150 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR06
+L GND-RESCUE-plasma_modulator #PWR06
 U 1 1 54BB0BD2
 P 6800 1350
 F 0 "#PWR06" H 6800 1350 30  0001 C CNN
@@ -395,7 +395,7 @@ F 3 "" H 7700 2150 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR09
+L GND-RESCUE-plasma_modulator #PWR09
 U 1 1 54BB0F0F
 P 7700 3250
 F 0 "#PWR09" H 7700 3250 30  0001 C CNN
@@ -417,7 +417,7 @@ F 3 "" H 6550 3050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR011
+L GND-RESCUE-plasma_modulator #PWR011
 U 1 1 54BB11D0
 P 5500 2850
 F 0 "#PWR011" H 5500 2850 30  0001 C CNN
@@ -439,7 +439,7 @@ F 3 "" H 900 850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR013
+L GND-RESCUE-plasma_modulator #PWR013
 U 1 1 54BB1CAD
 P 2100 2600
 F 0 "#PWR013" H 2100 2600 30  0001 C CNN
@@ -450,7 +450,7 @@ F 3 "" H 2100 2600 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR014
+L +3.3V-RESCUE-plasma_modulator #PWR014
 U 1 1 54BB225F
 P 1850 2700
 F 0 "#PWR014" H 1850 2660 30  0001 C CNN
@@ -472,7 +472,7 @@ F 3 "" H 1350 3000 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R1
+L R-RESCUE-plasma_modulator R1
 U 1 1 54BB2657
 P 2100 2950
 F 0 "R1" V 2050 2750 40  0000 C CNN
@@ -483,7 +483,7 @@ F 3 "" H 2100 2950 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C C3
+L C-RESCUE-plasma_modulator C3
 U 1 1 54BB28A6
 P 1050 3300
 F 0 "C3" H 1050 3400 40  0000 L CNN
@@ -494,7 +494,7 @@ F 3 "" H 1050 3300 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C C2
+L C-RESCUE-plasma_modulator C2
 U 1 1 54BB28EB
 P 1050 2700
 F 0 "C2" H 1050 2800 40  0000 L CNN
@@ -505,7 +505,7 @@ F 3 "" H 1050 2700 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L GND #PWR015
+L GND-RESCUE-plasma_modulator #PWR015
 U 1 1 54BB290E
 P 750 3450
 F 0 "#PWR015" H 750 3450 30  0001 C CNN
@@ -544,7 +544,7 @@ MOD_A
 Text GLabel 5550 2700 0    60   Input ~ 0
 MOD_B
 $Comp
-L C C24
+L C-RESCUE-plasma_modulator C24
 U 1 1 54BB3E00
 P 8450 2950
 F 0 "C24" H 8450 3050 40  0000 L CNN
@@ -566,7 +566,7 @@ F 3 "" H 9150 2650 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR018
+L GND-RESCUE-plasma_modulator #PWR018
 U 1 1 54BB4385
 P 8450 3250
 F 0 "#PWR018" H 8450 3250 30  0001 C CNN
@@ -588,7 +588,7 @@ F 3 "" H 4400 5400 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR020
+L GND-RESCUE-plasma_modulator #PWR020
 U 1 1 54BB61CD
 P 3800 6350
 F 0 "#PWR020" H 3800 6350 30  0001 C CNN
@@ -599,7 +599,7 @@ F 3 "" H 3800 6350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR021
+L GND-RESCUE-plasma_modulator #PWR021
 U 1 1 54BB6213
 P 1750 6300
 F 0 "#PWR021" H 1750 6300 30  0001 C CNN
@@ -621,7 +621,7 @@ F 3 "" H 1750 5750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C17
+L C-RESCUE-plasma_modulator C17
 U 1 1 54BB6CF9
 P 4650 5650
 F 0 "C17" H 4650 5750 40  0000 L CNN
@@ -632,7 +632,7 @@ F 3 "" H 4650 5650 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C C18
+L C-RESCUE-plasma_modulator C18
 U 1 1 54BB6D98
 P 4650 5850
 F 0 "C18" H 4650 5950 40  0000 L CNN
@@ -647,7 +647,7 @@ RF_A
 Text GLabel 5000 5650 2    60   Input ~ 0
 RF_OUT_A
 $Comp
-L C C11
+L C-RESCUE-plasma_modulator C11
 U 1 1 54BB7EAB
 P 4000 5950
 F 0 "C11" H 4000 6050 40  0000 L CNN
@@ -658,7 +658,7 @@ F 3 "" H 4000 5950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C14
+L C-RESCUE-plasma_modulator C14
 U 1 1 54BB7F0E
 P 4250 5950
 F 0 "C14" H 4250 6050 40  0000 L CNN
@@ -669,7 +669,7 @@ F 3 "" H 4250 5950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C5
+L C-RESCUE-plasma_modulator C5
 U 1 1 54BB8C1D
 P 750 1900
 F 0 "C5" H 750 2000 40  0000 L CNN
@@ -680,7 +680,7 @@ F 3 "" H 750 1900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C8
+L C-RESCUE-plasma_modulator C8
 U 1 1 54BB8D75
 P 1500 1900
 F 0 "C8" H 1500 2000 40  0000 L CNN
@@ -691,7 +691,7 @@ F 3 "" H 1500 1900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C9
+L C-RESCUE-plasma_modulator C9
 U 1 1 54BB8D9A
 P 1750 1900
 F 0 "C9" H 1750 2000 40  0000 L CNN
@@ -702,7 +702,7 @@ F 3 "" H 1750 1900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C12
+L C-RESCUE-plasma_modulator C12
 U 1 1 54BB8DB7
 P 2000 1900
 F 0 "C12" H 2000 2000 40  0000 L CNN
@@ -713,7 +713,7 @@ F 3 "" H 2000 1900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR023
+L GND-RESCUE-plasma_modulator #PWR023
 U 1 1 54BB9632
 P 1300 1500
 F 0 "#PWR023" H 1300 1500 30  0001 C CNN
@@ -779,7 +779,7 @@ F 3 "" H 4100 6700 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R2
+L R-RESCUE-plasma_modulator R2
 U 1 1 54BBAE04
 P 3150 7250
 F 0 "R2" V 3230 7250 40  0000 C CNN
@@ -801,7 +801,7 @@ F 3 "" H 4400 6600 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR027
+L GND-RESCUE-plasma_modulator #PWR027
 U 1 1 54BBAE14
 P 3750 7650
 F 0 "#PWR027" H 3750 7650 30  0001 C CNN
@@ -812,7 +812,7 @@ F 3 "" H 3750 7650 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR028
+L GND-RESCUE-plasma_modulator #PWR028
 U 1 1 54BBAE1A
 P 1700 7600
 F 0 "#PWR028" H 1700 7600 30  0001 C CNN
@@ -834,7 +834,7 @@ F 3 "" H 1700 7050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C15
+L C-RESCUE-plasma_modulator C15
 U 1 1 54BBAE2F
 P 4600 6950
 F 0 "C15" H 4600 7050 40  0000 L CNN
@@ -845,7 +845,7 @@ F 3 "" H 4600 6950 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C C16
+L C-RESCUE-plasma_modulator C16
 U 1 1 54BBAE35
 P 4600 7150
 F 0 "C16" H 4600 7250 40  0000 L CNN
@@ -860,7 +860,7 @@ RF_B
 Text GLabel 4950 6950 2    60   Input ~ 0
 RF_OUT_B
 $Comp
-L C C10
+L C-RESCUE-plasma_modulator C10
 U 1 1 54BBAE43
 P 3950 7250
 F 0 "C10" H 3950 7350 40  0000 L CNN
@@ -871,7 +871,7 @@ F 3 "" H 3950 7250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C13
+L C-RESCUE-plasma_modulator C13
 U 1 1 54BBAE49
 P 4200 7250
 F 0 "C13" H 4200 7350 40  0000 L CNN
@@ -897,7 +897,7 @@ F 3 "" H 6050 5150 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L GND #PWR030
+L GND-RESCUE-plasma_modulator #PWR030
 U 1 1 54BBCC93
 P 6300 5350
 F 0 "#PWR030" H 6300 5350 30  0001 C CNN
@@ -908,7 +908,7 @@ F 3 "" H 6300 5350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR031
+L GND-RESCUE-plasma_modulator #PWR031
 U 1 1 54BBF959
 P 10300 3400
 F 0 "#PWR031" H 10300 3400 30  0001 C CNN
@@ -919,7 +919,7 @@ F 3 "" H 10300 3400 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R16
+L R-RESCUE-plasma_modulator R16
 U 1 1 54BBFD76
 P 10150 3800
 F 0 "R16" V 10230 3800 40  0000 C CNN
@@ -930,7 +930,7 @@ F 3 "" H 10150 3800 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR032
+L GND-RESCUE-plasma_modulator #PWR032
 U 1 1 54BBFFF0
 P 10150 4100
 F 0 "#PWR032" H 10150 4100 30  0001 C CNN
@@ -958,7 +958,7 @@ $EndComp
 Text GLabel 7350 4450 2    60   Input ~ 0
 SWDIO
 $Comp
-L GND #PWR033
+L GND-RESCUE-plasma_modulator #PWR033
 U 1 1 54BC24E8
 P 7300 4750
 F 0 "#PWR033" H 7300 4750 30  0001 C CNN
@@ -969,7 +969,7 @@ F 3 "" H 7300 4750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR034
+L +3.3V-RESCUE-plasma_modulator #PWR034
 U 1 1 54BC2592
 P 7300 4300
 F 0 "#PWR034" H 7300 4260 30  0001 C CNN
@@ -980,7 +980,7 @@ F 3 "" H 7300 4300 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C23
+L C-RESCUE-plasma_modulator C23
 U 1 1 54BC294A
 P 7950 5900
 F 0 "C23" H 7950 6000 40  0000 L CNN
@@ -991,7 +991,7 @@ F 3 "" H 7950 5900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR035
+L GND-RESCUE-plasma_modulator #PWR035
 U 1 1 54BC2F30
 P 7950 6200
 F 0 "#PWR035" H 7950 6200 30  0001 C CNN
@@ -1004,7 +1004,7 @@ $EndComp
 Text GLabel 7650 5350 1    60   Input ~ 0
 reset
 $Comp
-L GND #PWR036
+L GND-RESCUE-plasma_modulator #PWR036
 U 1 1 54BC4A7E
 P 10500 6000
 F 0 "#PWR036" H 10500 6000 30  0001 C CNN
@@ -1019,7 +1019,7 @@ CURRENT_ADC
 Text GLabel 9950 3700 0    60   Input ~ 0
 CURRENT_ADC
 $Comp
-L R R19
+L R-RESCUE-plasma_modulator R19
 U 1 1 54BB3868
 P 10650 3300
 F 0 "R19" V 10730 3300 40  0000 C CNN
@@ -1030,7 +1030,7 @@ F 3 "" H 10650 3300 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R20
+L R-RESCUE-plasma_modulator R20
 U 1 1 54BB39B2
 P 10650 3900
 F 0 "R20" V 10730 3900 40  0000 C CNN
@@ -1041,7 +1041,7 @@ F 3 "" H 10650 3900 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C26
+L C-RESCUE-plasma_modulator C26
 U 1 1 54BB3CF9
 P 10900 3900
 F 0 "C26" H 10900 4000 40  0000 L CNN
@@ -1052,7 +1052,7 @@ F 3 "" H 10900 3900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR037
+L GND-RESCUE-plasma_modulator #PWR037
 U 1 1 54BB3D6B
 P 10650 4200
 F 0 "#PWR037" H 10650 4200 30  0001 C CNN
@@ -1067,7 +1067,7 @@ OUTPUT_ADC
 Text GLabel 4300 2300 2    60   Input ~ 0
 OUTPUT_ADC
 $Comp
-L R R18
+L R-RESCUE-plasma_modulator R18
 U 1 1 54BB52A9
 P 10500 5200
 F 0 "R18" V 10580 5200 40  0000 C CNN
@@ -1078,7 +1078,7 @@ F 3 "" H 10500 5200 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED D2
+L LED-RESCUE-plasma_modulator D2
 U 1 1 54BB57C9
 P 10200 5700
 F 0 "D2" H 10200 5800 50  0000 C CNN
@@ -1089,7 +1089,7 @@ F 3 "" H 10200 5700 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L GND #PWR038
+L GND-RESCUE-plasma_modulator #PWR038
 U 1 1 54BB57CF
 P 10200 6000
 F 0 "#PWR038" H 10200 6000 30  0001 C CNN
@@ -1100,7 +1100,7 @@ F 3 "" H 10200 6000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R17
+L R-RESCUE-plasma_modulator R17
 U 1 1 54BB57D6
 P 10200 5200
 F 0 "R17" V 10280 5200 40  0000 C CNN
@@ -1126,7 +1126,7 @@ F 3 "" H 6050 5850 60  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR039
+L +3.3V-RESCUE-plasma_modulator #PWR039
 U 1 1 54BB7915
 P 6300 5550
 F 0 "#PWR039" H 6300 5510 30  0001 C CNN
@@ -1137,7 +1137,7 @@ F 3 "" H 6300 5550 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR040
+L GND-RESCUE-plasma_modulator #PWR040
 U 1 1 54BB79D7
 P 6500 5650
 F 0 "#PWR040" H 6500 5650 30  0001 C CNN
@@ -1186,7 +1186,7 @@ F 3 "" H 9800 5850 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R12
+L R-RESCUE-plasma_modulator R12
 U 1 1 54BBA08E
 P 9000 5200
 F 0 "R12" V 9080 5200 40  0000 C CNN
@@ -1197,7 +1197,7 @@ F 3 "" H 9000 5200 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R15
+L R-RESCUE-plasma_modulator R15
 U 1 1 54BBA136
 P 9800 5200
 F 0 "R15" V 9880 5200 40  0000 C CNN
@@ -1208,7 +1208,7 @@ F 3 "" H 9800 5200 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR041
+L +3.3V-RESCUE-plasma_modulator #PWR041
 U 1 1 54BBA386
 P 9800 4900
 F 0 "#PWR041" H 9800 4860 30  0001 C CNN
@@ -1219,7 +1219,7 @@ F 3 "" H 9800 4900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR042
+L +3.3V-RESCUE-plasma_modulator #PWR042
 U 1 1 54BBA3CF
 P 9000 4900
 F 0 "#PWR042" H 9000 4860 30  0001 C CNN
@@ -1236,7 +1236,7 @@ BUTTON_B
 Text GLabel 7700 4550 2    60   Input ~ 0
 SWCLK
 $Comp
-L GND #PWR043
+L GND-RESCUE-plasma_modulator #PWR043
 U 1 1 54BBC277
 P 9000 6250
 F 0 "#PWR043" H 9000 6250 30  0001 C CNN
@@ -1247,7 +1247,7 @@ F 3 "" H 9000 6250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR044
+L GND-RESCUE-plasma_modulator #PWR044
 U 1 1 54BBC573
 P 9800 6250
 F 0 "#PWR044" H 9800 6250 30  0001 C CNN
@@ -1260,7 +1260,7 @@ $EndComp
 Text GLabel 1700 3600 0    60   Input ~ 0
 BUTTON_B
 $Comp
-L R R4
+L R-RESCUE-plasma_modulator R4
 U 1 1 54BBE7F9
 P 7450 850
 F 0 "R4" V 7530 850 40  0000 C CNN
@@ -1271,7 +1271,7 @@ F 3 "" H 7450 850 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R5
+L R-RESCUE-plasma_modulator R5
 U 1 1 54BBE7FF
 P 7900 1200
 F 0 "R5" V 7980 1200 40  0000 C CNN
@@ -1282,7 +1282,7 @@ F 3 "" H 7900 1200 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C21
+L C-RESCUE-plasma_modulator C21
 U 1 1 54BBE805
 P 8150 1200
 F 0 "C21" H 8150 1300 40  0000 L CNN
@@ -1293,7 +1293,7 @@ F 3 "" H 8150 1200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR045
+L GND-RESCUE-plasma_modulator #PWR045
 U 1 1 54BBE80B
 P 7900 1500
 F 0 "#PWR045" H 7900 1500 30  0001 C CNN
@@ -1321,7 +1321,7 @@ F 3 "" H 8650 1350 60  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L C C25
+L C-RESCUE-plasma_modulator C25
 U 1 1 54BC4464
 P 9500 1500
 F 0 "C25" H 9500 1600 40  0000 L CNN
@@ -1332,7 +1332,7 @@ F 3 "" H 9500 1500 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L GND #PWR046
+L GND-RESCUE-plasma_modulator #PWR046
 U 1 1 54BC47B6
 P 8950 1700
 F 0 "#PWR046" H 8950 1700 30  0001 C CNN
@@ -1343,7 +1343,7 @@ F 3 "" H 8950 1700 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R9
+L R-RESCUE-plasma_modulator R9
 U 1 1 54BC495D
 P 9150 1800
 F 0 "R9" V 9230 1800 40  0000 C CNN
@@ -1354,7 +1354,7 @@ F 3 "" H 9150 1800 30  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L R R10
+L R-RESCUE-plasma_modulator R10
 U 1 1 54BC4A5F
 P 9500 1300
 F 0 "R10" V 9580 1300 40  0000 C CNN
@@ -1365,7 +1365,7 @@ F 3 "" H 9500 1300 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R13
+L R-RESCUE-plasma_modulator R13
 U 1 1 54BC4BF9
 P 9850 1800
 F 0 "R13" V 9930 1800 40  0000 C CNN
@@ -1376,7 +1376,7 @@ F 3 "" H 9850 1800 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR047
+L +3.3V-RESCUE-plasma_modulator #PWR047
 U 1 1 54BC5953
 P 9250 1250
 F 0 "#PWR047" H 9250 1210 30  0001 C CNN
@@ -1387,7 +1387,7 @@ F 3 "" H 9250 1250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR048
+L GND-RESCUE-plasma_modulator #PWR048
 U 1 1 54BC5B97
 P 9150 2100
 F 0 "#PWR048" H 9150 2100 30  0001 C CNN
@@ -1398,7 +1398,7 @@ F 3 "" H 9150 2100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR049
+L GND-RESCUE-plasma_modulator #PWR049
 U 1 1 54BC5C7D
 P 9850 2100
 F 0 "#PWR049" H 9850 2100 30  0001 C CNN
@@ -1411,7 +1411,7 @@ $EndComp
 Text GLabel 10600 1500 2    60   Input ~ 0
 AUDIO_ADC
 $Comp
-L R R14
+L R-RESCUE-plasma_modulator R14
 U 1 1 54BCE9D0
 P 9350 2900
 F 0 "R14" V 9430 2900 40  0000 C CNN
@@ -1433,7 +1433,7 @@ F 3 "" H 6550 1100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C19
+L C-RESCUE-plasma_modulator C19
 U 1 1 54D464F2
 P 10950 2900
 F 0 "C19" H 10950 3000 40  0000 L CNN
@@ -1444,7 +1444,7 @@ F 3 "" H 10950 2900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR050
+L GND-RESCUE-plasma_modulator #PWR050
 U 1 1 54D46650
 P 10950 3250
 F 0 "#PWR050" H 10950 3250 30  0001 C CNN
@@ -1455,7 +1455,7 @@ F 3 "" H 10950 3250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C28
+L C-RESCUE-plasma_modulator C28
 U 1 1 54D4F01C
 P 2150 1100
 F 0 "C28" H 2150 1200 40  0000 L CNN
@@ -1466,7 +1466,7 @@ F 3 "" H 2150 1100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C29
+L C-RESCUE-plasma_modulator C29
 U 1 1 54D4F1F9
 P 2400 1100
 F 0 "C29" H 2400 1200 40  0000 L CNN
@@ -1477,7 +1477,7 @@ F 3 "" H 2400 1100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C30
+L C-RESCUE-plasma_modulator C30
 U 1 1 54D55996
 P 2250 1900
 F 0 "C30" H 2250 2000 40  0000 L CNN
@@ -2055,7 +2055,7 @@ F 3 "" H 4250 950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C31
+L C-RESCUE-plasma_modulator C31
 U 1 1 54D565E1
 P 4450 1200
 F 0 "C31" H 4450 1300 40  0000 L CNN
@@ -2066,7 +2066,7 @@ F 3 "" H 4450 1200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C32
+L C-RESCUE-plasma_modulator C32
 U 1 1 54D566D9
 P 4700 1200
 F 0 "C32" H 4700 1300 40  0000 L CNN
@@ -2077,7 +2077,7 @@ F 3 "" H 4700 1200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR053
+L GND-RESCUE-plasma_modulator #PWR053
 U 1 1 54D566F9
 P 4700 1500
 F 0 "#PWR053" H 4700 1500 30  0001 C CNN
@@ -2088,7 +2088,7 @@ F 3 "" H 4700 1500 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR054
+L GND-RESCUE-plasma_modulator #PWR054
 U 1 1 54D5670D
 P 3200 1400
 F 0 "#PWR054" H 3200 1400 30  0001 C CNN
@@ -2114,7 +2114,7 @@ Wire Wire Line
 Wire Wire Line
 	4700 1400 4700 1500
 $Comp
-L C C33
+L C-RESCUE-plasma_modulator C33
 U 1 1 54D5731E
 P 4950 1200
 F 0 "C33" H 4950 1300 40  0000 L CNN
@@ -2171,7 +2171,7 @@ F 3 "" H 2050 4850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR057
+L +3.3V-RESCUE-plasma_modulator #PWR057
 U 1 1 54D58AF5
 P 1150 4200
 F 0 "#PWR057" H 1150 4160 30  0001 C CNN
@@ -2182,7 +2182,7 @@ F 3 "" H 1150 4200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR058
+L +3.3V-RESCUE-plasma_modulator #PWR058
 U 1 1 54D58B09
 P 1150 4850
 F 0 "#PWR058" H 1150 4810 30  0001 C CNN
@@ -2193,7 +2193,7 @@ F 3 "" H 1150 4850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR059
+L GND-RESCUE-plasma_modulator #PWR059
 U 1 1 54D58B45
 P 2050 4550
 F 0 "#PWR059" H 2050 4550 30  0001 C CNN
@@ -2204,7 +2204,7 @@ F 3 "" H 2050 4550 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR060
+L GND-RESCUE-plasma_modulator #PWR060
 U 1 1 54D58BB9
 P 2050 5200
 F 0 "#PWR060" H 2050 5200 30  0001 C CNN
@@ -2281,7 +2281,7 @@ F 3 "" H 1050 5200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C34
+L C-RESCUE-plasma_modulator C34
 U 1 1 54D5A879
 P 2650 1100
 F 0 "C34" H 2650 1200 40  0000 L CNN
@@ -2294,7 +2294,7 @@ $EndComp
 Connection ~ 2400 900 
 Connection ~ 2400 1300
 $Comp
-L GND #PWR063
+L GND-RESCUE-plasma_modulator #PWR063
 U 1 1 54D599F9
 P 2050 3250
 F 0 "#PWR063" H 2050 3250 30  0001 C CNN
@@ -2305,7 +2305,7 @@ F 3 "" H 2050 3250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R8
+L R-RESCUE-plasma_modulator R8
 U 1 1 54D662FE
 P 10250 1500
 F 0 "R8" V 10330 1500 40  0000 C CNN
@@ -2316,7 +2316,7 @@ F 3 "" H 10250 1500 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L C C35
+L C-RESCUE-plasma_modulator C35
 U 1 1 54D6638C
 P 10600 1750
 F 0 "C35" H 10600 1850 40  0000 L CNN
@@ -2331,7 +2331,7 @@ Wire Wire Line
 Wire Wire Line
 	10600 1500 10600 1550
 $Comp
-L GND #PWR064
+L GND-RESCUE-plasma_modulator #PWR064
 U 1 1 54D668F9
 P 10600 2100
 F 0 "#PWR064" H 10600 2100 30  0001 C CNN
@@ -2344,7 +2344,7 @@ $EndComp
 Wire Wire Line
 	10600 1950 10600 2100
 $Comp
-L C C36
+L C-RESCUE-plasma_modulator C36
 U 1 1 54D69ACB
 P 2900 1100
 F 0 "C36" H 2900 1200 40  0000 L CNN
@@ -2361,7 +2361,7 @@ BUTTON_A
 Wire Wire Line
 	2350 3350 2450 3350
 $Comp
-L R R21
+L R-RESCUE-plasma_modulator R21
 U 1 1 54D915C5
 P 5650 2250
 F 0 "R21" V 5730 2250 40  0000 C CNN
