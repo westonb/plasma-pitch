@@ -1,4 +1,4 @@
-# Makefile for STM32F373 using cmsis and GNU toolchain.
+# Makefile for STM32F051 using cmsis and GNU toolchain.
 
 # Files to include
 C_SRC  = $(wildcard src/*.c)
